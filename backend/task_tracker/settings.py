@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "graphene_django",
+    "tasks",
 ]
+
+GRAPHENE = {
+    "SCHEMA": "tasks.schema.schema"  # path to your schema object
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -5,6 +5,7 @@ from .models import Task
 class TaskType(DjangoObjectType):
     class Meta:
         model = Task
+        fields = ("id", "title", "completed")
 
 class Query(graphene.ObjectType):
     all_tasks = graphene.List(TaskType)
