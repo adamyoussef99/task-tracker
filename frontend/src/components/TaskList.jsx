@@ -13,6 +13,9 @@ export default function TaskList() {
   console.log("Error:", error);
   console.log("Data:", data);
 
+  if (loading) return <p>Loading tasks...</p>;
+  if (error) return <p>Error loading tasks: {error.message}</p>;
+
   // Add safety checks for data structure
   if (!data) {
     return <p>No data received from server</p>;
