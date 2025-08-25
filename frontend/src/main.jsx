@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from './App.jsx'
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import './index.css'
 
+// Create the HTTP link
+const httpLink = createHttpLink({
+  uri: "http://localhost:8000/graphql/",
+});
+
+// Create Apollo Client with explicit link
 const client = new ApolloClient({
-  uri: "http://localhost:8000/graphql/", // your Django GraphQL endpoint
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 

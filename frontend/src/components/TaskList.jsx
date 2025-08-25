@@ -8,11 +8,6 @@ export default function TaskList() {
     refetchQueries: [{ query: GET_TASKS }],
   });
 
-   // Debug logging (remove after fixing)
-  console.log("Loading:", loading);
-  console.log("Error:", error);
-  console.log("Data:", data);
-
   if (loading) return <p>Loading tasks...</p>;
   if (error) return <p>Error loading tasks: {error.message}</p>;
 
@@ -21,15 +16,25 @@ export default function TaskList() {
     return <p>No data received from server</p>;
   }
 
-  if (!data.tasks) {
-    return <p>No tasks property in data</p>;
+    // Handle different possible property names
+  const tasks = data.allTasks;
+
+
+  if (!tasks) {
+    return (
+      <div>
+        <p>No tasks property found in data</p>
+        <p>Available properties: {Object.keys(data).join(', ')}</p>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
+    );
   }
 
-  if (!Array.isArray(data.tasks)) {
-    return <p>Tasks data is not an array</p>;
+  if (!Array.isArray(tasks)) {
+    return <p>Tasks data is not an array: {typeof tasks}</p>;
   }
 
-  if (data.tasks.length === 0) {
+  if (tasks.length === 0) {
     return <p>No tasks found</p>;
   }
 
@@ -43,7 +48,7 @@ export default function TaskList() {
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">My Tasks</h1>
       <ul className="space-y-4">
-        {data.tasks.map((task) => (
+        {tasks.map((task) => (
           <li
             key={task.id}
             className="p-4 bg-white rounded-lg shadow flex items-center justify-between"
