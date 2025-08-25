@@ -5,5 +5,5 @@ from django.contrib import admin
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('graphql/', GraphQLView.as_view(graphiql=True)),
 ]

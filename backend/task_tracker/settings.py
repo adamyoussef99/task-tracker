@@ -41,17 +41,19 @@ INSTALLED_APPS = [
     "graphene_django",
     "tasks",
     "django_filters",
+    "corsheaders",
 ]
 
 GRAPHENE = {
-    "SCHEMA": "tasks.schema.schema"  # path to your schema object
+    "SCHEMA": "tasks.schema.schema",  # path to your schema object
+    "MIDDLEWARE": [],
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -72,6 +74,24 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Vite dev port
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",  # Alternative frontend port
+]
+
+CORS_ALLOWED_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 WSGI_APPLICATION = 'task_tracker.wsgi.application'
