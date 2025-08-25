@@ -18,6 +18,7 @@ class Query(graphene.ObjectType):
     all_tasks = graphene.List(TaskType)
     task_by_id = graphene.Field(TaskType, id=graphene.Int(required=True))
     incomplete_tasks = graphene.List(TaskType)
+    completed_tasks = graphene.List(TaskType)
 
     def resolve_all_tasks(self, info):
         return Task.objects.all()
@@ -27,6 +28,9 @@ class Query(graphene.ObjectType):
 
     def resolve_incomplete_tasks(root, info):
         return Task.objects.filter(is_complete=False).order_by("due_date")
+    
+    def resolve_completed_tasks(root, info):
+        return Task.objects.filter(is_complete=True).order_by("due_date")
 
 class CreateTask(graphene.Mutation):
     class Arguments:
@@ -63,10 +67,23 @@ class UpdateTask(graphene.Mutation):
             task.is_complete = is_complete
         task.save()
         return UpdateTask(task=task)
+    
+class DeleteTask(graphene.Mutation):
+    ok = graphene.Boolean()
+    class Arguments:
+        id = graphene.ID(required=True)
 
+    def mutate(self, info, id):
+        try:
+            task = Task.objects.get(pk=id)
+            task.delete()
+            return DeleteTask(ok=True)
+        except Task.DoesNotExist:
+            return DeleteTask(ok=False)
 
 class Mutation(graphene.ObjectType):
     create_task = CreateTask.Field()
     update_task = UpdateTask.Field()
+    delete_task = DeleteTask.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
