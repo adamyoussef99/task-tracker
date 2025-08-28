@@ -56,17 +56,20 @@ class UpdateTask(graphene.Mutation):
     task = graphene.Field(TaskType)
 
     def mutate(root, info, id, title=None, description=None, due_date=None, is_complete=None):
-        task = Task.objects.get(pk=id)
-        if title is not None:
-            task.title = title
-        if description is not None:
-            task.description = description
-        if due_date is not None:
-            task.due_date = due_date
-        if is_complete is not None:
-            task.is_complete = is_complete
-        task.save()
-        return UpdateTask(task=task)
+        try:
+            task = Task.objects.get(pk=id)
+            if title is not None:
+                task.title = title
+            if description is not None:
+                task.description = description
+            if due_date is not None:
+                task.due_date = due_date
+            if is_complete is not None:
+                task.is_complete = is_complete
+            task.save()
+            return UpdateTask(task=task)
+        except Task.DoesNotExist:
+            return UpdateTask(task=None)
     
 class DeleteTask(graphene.Mutation):
     ok = graphene.Boolean()

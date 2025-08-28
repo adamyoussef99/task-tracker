@@ -21,29 +21,32 @@ export default function TaskForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-gray-100 rounded-lg mb-6">
-      <h2 className="font-bold mb-2">Add New Task</h2>
+    <form onSubmit={handleSubmit} className="mb-6 space-y-2">
       <input
         type="text"
         placeholder="Title"
-        className="border p-2 rounded w-full mb-2"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
+        className="border p-2 w-full"
       />
-      <textarea
+      <input
+        type="text"
         placeholder="Description"
-        className="border p-2 rounded w-full mb-2"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        className="border p-2 w-full"
       />
       <input
         type="date"
-        className="border p-2 rounded w-full mb-2"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
+        className="border p-2 w-full"
       />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+      <button
+        type="submit"
+        className="bg-green-500 text-white px-4 py-2 rounded"
+      >
         Add Task
       </button>
     </form>

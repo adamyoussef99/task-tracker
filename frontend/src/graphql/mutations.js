@@ -1,14 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_TASK = gql`
-  mutation CreateTask($title: String!, $description: String, $dueDate: String) {
+  mutation CreateTask($title: String!, $description: String, $dueDate: Date) {
     createTask(title: $title, description: $description, dueDate: $dueDate) {
-      id
-      title
-      description
-      dueDate
-      isComplete
-      createdAt
+      task {
+        id
+        title
+        description
+        dueDate
+        isComplete
+        createdAt
+      }
     }
   }
 `;
