@@ -1,10 +1,13 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TASKS } from "../graphql/queries";
-import { TOGGLE_TASK } from "../graphql/mutations";
+import { TOGGLE_TASK, DELETE_TASK } from "../graphql/mutations";
 
 export default function TaskList() {
   const { loading, error, data } = useQuery(GET_TASKS);
   const [toggleTask] = useMutation(TOGGLE_TASK, {
+    refetchQueries: [{ query: GET_TASKS }],
+  });
+  const [deleteTask] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_TASKS }],
   });
 
@@ -44,6 +47,16 @@ export default function TaskList() {
     });
   };
 
+  const handleDelete = (id) => {
+  deleteTask({ variables: { id } })
+    .then((res) => {
+      if (!res.data.deleteTask.ok) {
+        console.error("Failed to delete task");
+      }
+    })
+    .catch((err) => console.error("Delete error:", err));
+};
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">My Tasks</h1>
@@ -71,6 +84,12 @@ export default function TaskList() {
                 />
                 <span className="ml-2">Complete</span>
               </label>
+              <button
+                className="ml-2 text-red-500"
+                onClick={() => handleDelete(task.id)}
+              >
+                Delete
+              </button>
             </div>
           </li>
         ))}
