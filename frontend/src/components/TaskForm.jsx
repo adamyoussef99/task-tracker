@@ -41,6 +41,7 @@ export default function TaskForm() {
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
+        required
         className="border p-2 w-full"
       />
       <button
