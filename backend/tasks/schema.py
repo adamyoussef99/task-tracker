@@ -45,6 +45,29 @@ class CreateTask(graphene.Mutation):
         task.save()
         return CreateTask(task=task)
 
+class TaskInput(graphene.InputObjectType):
+    title = graphene.String(required=True)
+    description = graphene.String()
+    due_date = graphene.Date()
+
+class CreateMultipleTasks(graphene.Mutation):
+    class Arguments:
+        tasks = graphene.List(graphene.NonNull(TaskInput), required=True)
+
+    tasks = graphene.List(TaskType)
+
+    def mutate(root, info, tasks):
+        created_tasks = []
+        for task_data in tasks:
+            task = Task(
+                title=task_data.title,
+                description=task_data.description or "",
+                due_date=task_data.due_date
+            )
+            task.save()
+            created_tasks.append(task)
+        return CreateMultipleTasks(tasks=created_tasks)
+    
 class UpdateTask(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
@@ -88,5 +111,6 @@ class Mutation(graphene.ObjectType):
     create_task = CreateTask.Field()
     update_task = UpdateTask.Field()
     delete_task = DeleteTask.Field()
+    creat_multiple_tasks = CreateMultipleTasks.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

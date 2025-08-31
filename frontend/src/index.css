@@ -105,6 +105,7 @@ tbody td {
 .toggle-btn.completed {
   background-color: #10b981; /* green-500 */
   border-color: #10b981;
+  color: white;
   width: 1.5rem;
   height: 1.5rem;
   min-width: 1.5rem; /* Prevent it from getting wider */
