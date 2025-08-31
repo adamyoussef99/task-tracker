@@ -15,7 +15,7 @@ A simple full‑stack task manager that lets you create, view, complete, and del
 
 ---
 
-## 🔧 Running Locally with Docker
+## Running Locally with Docker
 
 ```bash
 git clone https://github.com/adamyoussef99/task-tracker.git
