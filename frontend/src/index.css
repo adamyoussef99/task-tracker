@@ -35,9 +35,39 @@ h1 {
   line-height: 1.1;
 }
 
+form {
+  padding: 1rem; /* adds space inside the form */
+  background-color: #ffffff; /* optional, if you want it boxed */
+  border-radius: 0.5rem; /* optional rounding */
+}
+
+input {
+  margin-right: 1rem;
+}
+
+/* Table header */
+thead {
+  background-color: #d1d5db; /* header gray */
+}
+
+/* Table rows default background */
+tbody tr {
+  background-color: #faf8f8; /* light gray */
+  transition: background-color 0.2s ease;
+}
+
+/* Hover highlight for rows */
+tbody tr:hover {
+  background-color: #e5e7eb; /* darker gray for hover */
+}
+
+/* Table cells padding */
+tbody td {
+  padding: 0.5rem 1rem;
+}
+
 /* Delete Button Styling */
 .delete-btn {
-  margin-left: 1rem;
   padding: 0.5rem 0.75rem;
   background-color: #ef4444; /* red-500 */
   color: white;
@@ -62,9 +92,6 @@ h1 {
   border-radius: 0.25rem; /* rounded corners for square */
   border: 2px solid #9ca3af; /* gray-400 */
   background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
   outline: none;
@@ -78,6 +105,14 @@ h1 {
 .toggle-btn.completed {
   background-color: #10b981; /* green-500 */
   border-color: #10b981;
+  width: 1.5rem;
+  height: 1.5rem;
+  min-width: 1.5rem; /* Prevent it from getting wider */
+  padding: 0; /* Remove default button padding */
+  border-radius: 0.25rem; /* rounded corners for square */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
 }
 
 .toggle-btn:hover {

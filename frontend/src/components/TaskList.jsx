@@ -20,9 +20,7 @@ export default function TaskList() {
     },
   });
 
-  const [toggleTask] = useMutation(TOGGLE_TASK, {
-    refetchQueries: [{ query: GET_TASKS }],
-  });
+  const [toggleTask] = useMutation(TOGGLE_TASK);
   const [deleteTask] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_TASKS }],
   });
@@ -35,7 +33,7 @@ export default function TaskList() {
     return <p>No data received from server</p>;
   }
 
-    // Handle different possible property names
+  // Handle different possible property names
   const tasks = data.allTasks;
 
   if (!tasks) {
@@ -50,10 +48,6 @@ export default function TaskList() {
 
   if (!Array.isArray(tasks)) {
     return <p>Tasks data is not an array: {typeof tasks}</p>;
-  }
-
-  if (tasks.length === 0) {
-    return <p>No tasks found</p>;
   }
 
   const handleAdd = (e) => {
@@ -88,7 +82,18 @@ export default function TaskList() {
       }
     })
     .catch((err) => console.error("Delete error:", err));
-};
+  };
+
+  if (tasks.length === 0) {
+    return(
+      <div className="p-6 max-w-3xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4">My Tasks</h1>
+        <TaskForm onSubmit={handleAdd} />
+        <p>No tasks found</p>;
+      </div>
+      
+    );   
+  }
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -97,52 +102,64 @@ export default function TaskList() {
       {/* --- Add Task Form --- */}
       <TaskForm onSubmit={handleAdd} />
 
-      <div className="space-y-4">
-        {tasks.map((task) => (
-          <div
-            key={task.id}
-            className="p-4 bg-white rounded-lg shadow flex items-center justify-between"
-          >
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => handleToggle(task)}
-                className={`toggle-btn ${task.isComplete ? 'completed' : ''}`}
-              >
-                {task.isComplete && (
-                  <span style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>
-                    ✓
-                  </span>
-                )}
-              </button>
+      {/* Table */}
+      <div className="mt-6 border border-gray-200 rounded-lg overflow-hidden">
+        <table className="w-full text-sm border-collapse">
+          {/* Table Head */}
+          <thead className="bg-gray-100 text-gray-700 font-semibold">
+            <tr>
+              <th className="w-10 px-4 py-2 text-center">✓</th>
+              <th className="px-4 py-2 text-left">Title</th>
+              <th className="px-4 py-2 text-left">Description</th>
+              <th className="px-4 py-2 text-left">Due Date</th>
+              <th className="px-4 py-2 text-center">Actions</th>
+            </tr>
+          </thead>
 
-              {/* --- Task Info --- */}
-              <div>
-                <span
-                  className={`task-title ${task.isComplete ? 'completed' : ''}`}
-                >
+          {/* Table Body */}
+          <tbody>
+            {tasks.map((task) => (
+              <tr key={task.id} className="border-t border-gray-200">
+                {/* Checkbox */}
+                <td>
+                  <button
+                    onClick={() => handleToggle(task)}
+                    className={`toggle-btn ${task.isComplete ? "completed" : ""}`}
+                  >
+                    {task.isComplete && (
+                      <span>✓</span>
+                    )}
+                  </button>
+                </td>
+
+                {/* Title */}
+                <td>
                   {task.title}
-                </span>
-                <p className="text-sm text-gray-500">{task.description}</p>
-                {task.dueDate && (
-                  <p className="text-sm text-gray-500">
-                    Due: {new Date(task.dueDate).toLocaleDateString()}
-                  </p>
-                )}
-              </div>
-            </div>
+                </td>
 
-            {/* --- Delete Button --- */}
-            <div className="flex items-center space-x-2">
-              <button
-                className="delete-btn"
-                onClick={() => handleDelete(task.id)}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+                {/* Description */}
+                <td className="px-4 py-2 text-gray-500">{task.description}</td>
+
+                {/* Due Date */}
+                <td className="px-4 py-2 text-gray-500">
+                  {task.dueDate && new Date(task.dueDate).toLocaleDateString()}
+                </td>
+
+                {/* Delete Button */}
+                <td className="px-4 py-2 text-center">
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
+  
 }
