@@ -39,7 +39,7 @@ docker-compose up --build
 
 ---
 
-## ✅ Troubleshooting
+## Troubleshooting
 
 - If frontend doesn't hot‑reload: make sure `CHOKIDAR_USEPOLLING=true` (already set via compose), and polling is enabled in `vite.config.js`.
 - If ports conflict, adjust host mappings in `docker-compose.yml`.
