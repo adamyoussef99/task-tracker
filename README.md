@@ -4,7 +4,7 @@ A simple full‑stack task manager that lets you create, view, complete, and del
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 | Layer     | Technology                                       |
 |-----------|--------------------------------------------------|
@@ -30,19 +30,7 @@ docker-compose up --build
 
 ---
 
-## ✏️ Development Workflow
-
-1. Edit files in the `frontend/` directory → changes should hot-reload immediately thanks to polling setup in Vite.
-2. Backend changes in `backend/` will auto-reload via Django/Flask dev server.
-3. Database migrations can be applied from the backend container if using Django:
-   ```bash
-   docker-compose exec backend python manage.py migrate
-   ```
-4. To seed data or experiment with GraphQL, open GraphiQL at `http://localhost:8000/graphql`.
-
----
-
-## 🧩 Features
+## Functionality
 
 - Add, complete, and delete tasks
 - Responsive UI with tabular layout and styled form
