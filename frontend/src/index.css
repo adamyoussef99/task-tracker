@@ -35,6 +35,72 @@ h1 {
   line-height: 1.1;
 }
 
+/* Delete Button Styling */
+.delete-btn {
+  margin-left: 1rem;
+  padding: 0.5rem 0.75rem;
+  background-color: #ef4444; /* red-500 */
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: auto;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626; /* red-600 */
+}
+
+/* Toggle Button (Square Checkbox) Styling */
+.toggle-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  min-width: 1.5rem; /* Prevent it from getting wider */
+  padding: 0; /* Remove default button padding */
+  border-radius: 0.25rem; /* rounded corners for square */
+  border: 2px solid #9ca3af; /* gray-400 */
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.toggle-btn:focus {
+  outline: none; 
+  box-shadow: none; 
+}
+
+.toggle-btn.completed {
+  background-color: #10b981; /* green-500 */
+  border-color: #10b981;
+}
+
+.toggle-btn:hover {
+  border-color: #6b7280; /* gray-500 */
+}
+
+.toggle-btn.completed:hover {
+  background-color: #059669; /* green-600 */
+  border-color: #059669;
+}
+
+.toggle-btn svg {
+  width: 1rem;
+  height: 1rem;
+  color: white;
+}
+
+/* Task text styling */
+.task-title.completed {
+  text-decoration: line-through;
+  color: #6b7280; /* gray-500 */
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

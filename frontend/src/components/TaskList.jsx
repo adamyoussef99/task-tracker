@@ -106,31 +106,19 @@ export default function TaskList() {
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => handleToggle(task)}
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                  task.isCompleted
-                    ? "bg-green-500 border-green-500"
-                    : "border-gray-400"
-                }`}
+                className={`toggle-btn ${task.isComplete ? 'completed' : ''}`}
               >
-                {task.completed && (
-                  <svg
-                    className="w-4 h-4 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+                {task.isComplete && (
+                  <span style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>
+                    ✓
+                  </span>
                 )}
               </button>
 
               {/* --- Task Info --- */}
               <div>
                 <span
-                  className={
-                    task.isCompleted ? "line-through" : ""
-                  }
+                  className={`task-title ${task.isComplete ? 'completed' : ''}`}
                 >
                   {task.title}
                 </span>
@@ -146,7 +134,7 @@ export default function TaskList() {
             {/* --- Delete Button --- */}
             <div className="flex items-center space-x-2">
               <button
-                className="ml-4 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                className="delete-btn"
                 onClick={() => handleDelete(task.id)}
               >
                 Delete
