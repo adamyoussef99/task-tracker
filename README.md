@@ -9,7 +9,7 @@ A simple full‑stack task manager that lets you create, view, complete, and del
 | Layer     | Technology                                       |
 |-----------|--------------------------------------------------|
 | Frontend  | React with Vite, Tailwind CSS                    |
-| Backend   | Python (Django or Flask) + Graphene GraphQL API  |
+| Backend   | Python (Django) + Graphene GraphQL API  |
 | Database  | PostgreSQL                                       |
 | Dev Tools | Docker, docker-compose                           |
 
